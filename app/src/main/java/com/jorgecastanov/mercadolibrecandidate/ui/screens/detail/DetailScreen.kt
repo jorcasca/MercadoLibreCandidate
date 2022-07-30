@@ -11,40 +11,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.jorgecastanov.mercadolibrecandidate.ui.components.CustomAppBar
+import com.jorgecastanov.mercadolibrecandidate.ui.components.NavigationAppBar
 
 @Composable
 fun DetailScreen(navController: NavController, productId: String) {
 
     Scaffold(
         topBar = {
-            CustomAppBar(navigationIcon = Icons.Filled.ArrowBack) {
-                navController.navigate("feed") {
-                    popUpTo("feed")
+            NavigationAppBar(
+                navigationIcon = Icons.Filled.ArrowBack,
+                navigationAction = {
+                    navController.navigate("feed") {
+                        popUpTo("feed")
+                    }
                 }
-            }
+            )
         },
         content = {
             Column {
                 Text(
-                    productId,
+                    text = productId,
                     style = MaterialTheme.typography.h3
                 )
-                Button(onClick = {
-                    navController.navigate("feed") {
-                        popUpTo("feed")
-                    }
-                }) {
-                    Text(text = "Back")
-                }
+                Button(
+                    onClick = {
+                        navController.navigate("feed") {
+                            popUpTo("feed")
+                        }
+                    },
+                    content = {
+                        Text(
+                            text = "Back"
+                        )
+                    })
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DetailScreenPreview() {
-    val navController = rememberNavController()
-    DetailScreen(navController, "Product Detail")
 }
