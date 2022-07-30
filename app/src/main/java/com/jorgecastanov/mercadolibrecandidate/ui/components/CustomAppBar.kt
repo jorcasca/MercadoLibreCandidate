@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -79,6 +80,8 @@ fun SearchAppBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,6 +108,7 @@ fun SearchAppBar(
                 IconButton(
                     modifier = Modifier.alpha(ContentAlpha.medium),
                     onClick = {
+                        focusManager.clearFocus()
                         onSearchClicked(text)
                     }
                 ) {
@@ -137,6 +141,7 @@ fun SearchAppBar(
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
+                    focusManager.clearFocus()
                     onSearchClicked(text)
                 }
             ),
