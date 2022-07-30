@@ -2,7 +2,7 @@ package com.jorgecastanov.mercadolibrecandidate.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Purple200 = Color(0xFF15397F)
+val Purple500 = Color(0xFF005CB9)
+val Purple700 = Color(0xFFFFDA00)
+val Teal200 = Color(0xFFbEC6C3)
