@@ -106,7 +106,7 @@ fun OnError(error: String) {
 fun OnLoadedProducts(products: List<Product>, navController: NavController) {
     if (products.isNotEmpty())
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(1.dp)
         ) {
             items(products) { product ->
                 ProductCard(
@@ -114,13 +114,13 @@ fun OnLoadedProducts(products: List<Product>, navController: NavController) {
                     price = product.price,
                     condition = product.condition,
                     available_quantity = product.available_quantity,
-                    permalink = product.permalink,
                     thumbnail = product.thumbnail,
-                ) {
-                    navController.navigate("detail/${product.id}") {
-                        launchSingleTop = true
+                    onTab = {
+                        navController.navigate("detail/${product.id}") {
+                            launchSingleTop = true
+                        }
                     }
-                }
+                )
             }
         }
     else
