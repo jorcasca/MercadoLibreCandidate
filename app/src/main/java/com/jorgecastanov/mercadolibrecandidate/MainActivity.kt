@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jorgecastanov.mercadolibrecandidate.ui.screens.DetailScreen
-import com.jorgecastanov.mercadolibrecandidate.ui.screens.FeedScreen
+import com.jorgecastanov.mercadolibrecandidate.ui.screens.detail.DetailScreen
+import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedScreen
 import com.jorgecastanov.mercadolibrecandidate.ui.theme.MercadoLibreCandidateTheme
 
 class MainActivity : ComponentActivity() {

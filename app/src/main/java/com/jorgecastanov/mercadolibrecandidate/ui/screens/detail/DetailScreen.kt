@@ -1,4 +1,4 @@
-package com.jorgecastanov.mercadolibrecandidate.ui.screens
+package com.jorgecastanov.mercadolibrecandidate.ui.screens.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
