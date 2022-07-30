@@ -163,14 +163,14 @@ fun SearchAppBar(
 }
 
 @Composable
-fun FeedAppBar(onSearchClicked: (String) -> Unit = {}) {
+fun FeedAppBar(title: String = "",onSearchClicked: (String) -> Unit = {}) {
     var searchState by remember { mutableStateOf(SearchState.CLOSED) }
     var searchText by remember { mutableStateOf("") }
 
     when (searchState) {
         SearchState.CLOSED -> {
             ActionAppBar(
-                title = "Feed",
+                title = title,
                 actionIcon = Icons.Default.Search,
                 action = {
                     searchState = SearchState.OPENED

@@ -42,6 +42,7 @@ fun FeedScreen(navController: NavController) {
     Scaffold(
         topBar = {
             FeedAppBar(
+                title = "Mercado Libre Candidate",
                 onSearchClicked = { search ->
                     viewModel.productIntent.trySend(FeedIntent.FetchProducts(search))
                 }
@@ -88,7 +89,10 @@ fun OnEmptyProducts() {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("Empty")
+        Text(
+            text = "Empty",
+            style = MaterialTheme.typography.h2
+        )
     }
 }
 
@@ -98,7 +102,10 @@ fun OnError(error: String) {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(error)
+        Text(
+            text = error,
+            style = MaterialTheme.typography.h2
+        )
     }
 }
 
@@ -116,9 +123,11 @@ fun OnLoadedProducts(products: List<Product>, navController: NavController) {
                     available_quantity = product.available_quantity,
                     thumbnail = product.thumbnail,
                     onTab = {
-                        navController.navigate("detail/${product.id}") {
-                            launchSingleTop = true
-                        }
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            key = "product",
+                            value = product
+                        )
+                        navController.navigate("detail")
                     }
                 )
             }

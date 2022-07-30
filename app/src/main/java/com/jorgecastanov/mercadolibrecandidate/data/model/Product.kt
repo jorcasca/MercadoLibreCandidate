@@ -1,7 +1,10 @@
 package com.jorgecastanov.mercadolibrecandidate.data.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Product(
     @Json(name = "id")
     val id: String = "",
@@ -21,4 +24,4 @@ data class Product(
     val permalink: String = "",
     @Json(name = "thumbnail")
     val thumbnail: String = ""
-)
+): Parcelable

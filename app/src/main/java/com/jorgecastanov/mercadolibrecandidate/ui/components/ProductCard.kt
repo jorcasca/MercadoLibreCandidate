@@ -12,10 +12,10 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.jorgecastanov.mercadolibrecandidate.ui.theme.MercadoLibreCandidateTheme
+import com.jorgecastanov.mercadolibrecandidate.ui.utils.CurrencyHelper.convertCurrency
 
 @Composable
 fun ProductCard(
@@ -50,38 +50,23 @@ fun ProductCard(
                     ) {
                         Text(
                             text = title,
-                            style = MaterialTheme.typography.h1
+                            style = MaterialTheme.typography.h3
                         )
                         Text(
-                            "$ $price",
-                            style = MaterialTheme.typography.body1
+                            "$ ${price.convertCurrency()}",
+                            style = MaterialTheme.typography.body2
                         )
                         Text(
                             "$available_quantity Available",
-                            style = MaterialTheme.typography.body1
+                            style = MaterialTheme.typography.body2
                         )
                         Text(
                             condition,
-                            style = MaterialTheme.typography.body1
+                            style = MaterialTheme.typography.body2
                         )
                     }
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProductCardPreview() {
-    MercadoLibreCandidateTheme {
-        ProductCard(
-            title = "Samsung Galaxy J4+ Dual Sim 32 Gb Negro (2 Gb Ram)",
-            price = 19609.0,
-            condition = "new",
-            available_quantity = 1,
-            thumbnail = "http://mla-s1-p.mlstatic.com/943469-MLA31002769183_062019-I.jpg",
-            onTab = {}
-        )
     }
 }
