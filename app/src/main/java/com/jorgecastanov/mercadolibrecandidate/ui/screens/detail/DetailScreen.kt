@@ -36,9 +36,7 @@ fun DetailScreen(navController: NavController, product: Product) {
             NavigationAppBar(
                 navigationIcon = Icons.Filled.ArrowBack,
                 navigationAction = {
-                    navController.navigate("feed") {
-                        popUpTo("feed")
-                    }
+                    navController.popBackStack()
                 }
             )
         },

@@ -10,6 +10,8 @@ import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.detail.DetailScreen
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedScreen
 import com.jorgecastanov.mercadolibrecandidate.ui.theme.MercadoLibreCandidateTheme
+import com.jorgecastanov.mercadolibrecandidate.ui.navigation.Navigation.FEED_SCREEN
+import com.jorgecastanov.mercadolibrecandidate.ui.navigation.Navigation.DETAIL_SCREEN
 
 @Composable
 fun NavigationHost() {
@@ -20,12 +22,12 @@ fun NavigationHost() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = "feed"
+                startDestination = FEED_SCREEN
             ) {
-                composable(route = "feed") {
+                composable(route = FEED_SCREEN) {
                     FeedScreen(navController)
                 }
-                composable(route = "detail") {
+                composable(route = DETAIL_SCREEN) {
                     val product =
                         navController.previousBackStackEntry?.savedStateHandle?.get<Product>("product")
                     product?.let { DetailScreen(navController, product) }

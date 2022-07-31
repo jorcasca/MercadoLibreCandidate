@@ -26,6 +26,7 @@ import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Idle
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Products
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Error
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Loading
+import com.jorgecastanov.mercadolibrecandidate.ui.navigation.Navigation.DETAIL_SCREEN
 
 @Composable
 fun FeedScreen(
@@ -123,7 +124,7 @@ fun OnLoadedProducts(products: List<Product>, navController: NavController) {
                             key = "product",
                             value = product
                         )
-                        navController.navigate("detail")
+                        navController.navigate(DETAIL_SCREEN)
                     }
                 )
             }
