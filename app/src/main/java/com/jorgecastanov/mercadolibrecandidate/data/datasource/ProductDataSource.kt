@@ -1,8 +1,8 @@
-package com.jorgecastanov.mercadolibrecandidate.data.api
+package com.jorgecastanov.mercadolibrecandidate.data.datasource
 
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 
-interface ApiHelper {
+interface ProductDataSource {
 
     suspend fun getProducts(keyWord: String): List<Product>
 

@@ -1,8 +1,8 @@
 package com.jorgecastanov.mercadolibrecandidate.ui.screens.feed
 
-import com.jorgecastanov.mercadolibrecandidate.data.repository.FeedRepository
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import com.jorgecastanov.mercadolibrecandidate.data.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val repository: FeedRepository
+    private val productRepository: ProductRepository
 ) : ViewModel() {
 
     val productIntent = Channel<FeedIntent>()
@@ -40,9 +40,9 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = FeedState.Loading
             _state.value = try {
-                FeedState.Products(repository.getProducts(keyWord))
+                FeedState.Products(productRepository.getProducts(keyWord))
             } catch (e: Exception) {
-                FeedState.Error(e.localizedMessage)
+                FeedState.Error(e.message)
             }
         }
     }

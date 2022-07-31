@@ -1,8 +1,8 @@
 package com.jorgecastanov.mercadolibrecandidate.di
 
-import com.jorgecastanov.mercadolibrecandidate.data.api.ApiHelper
-import com.jorgecastanov.mercadolibrecandidate.data.api.ApiHelperImpl
-import com.jorgecastanov.mercadolibrecandidate.data.api.ApiService
+import com.jorgecastanov.mercadolibrecandidate.data.api.ProductApi
+import com.jorgecastanov.mercadolibrecandidate.data.datasource.ProductDataSource
+import com.jorgecastanov.mercadolibrecandidate.data.datasource.ProductRemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,10 +30,10 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    fun provideProductApi(retrofit: Retrofit): ProductApi = retrofit.create(ProductApi::class.java)
 
     @Singleton
     @Provides
-    fun provideApiHelper(apiService: ApiService): ApiHelper = ApiHelperImpl(apiService)
+    fun provideProductDataSource(apiService: ProductApi): ProductDataSource = ProductRemoteDataSource(apiService)
 
 }
