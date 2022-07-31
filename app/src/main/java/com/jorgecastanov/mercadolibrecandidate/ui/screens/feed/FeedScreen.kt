@@ -27,6 +27,7 @@ import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Product
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Error
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Loading
 import com.jorgecastanov.mercadolibrecandidate.ui.navigation.Navigation.DETAIL_SCREEN
+import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedIntent.FetchProducts
 
 @Composable
 fun FeedScreen(
@@ -41,7 +42,7 @@ fun FeedScreen(
             FeedAppBar(
                 title = "Mercado Libre Candidate",
                 onSearchClicked = { search ->
-                    viewModel.productIntent.trySend(FeedIntent.FetchProducts(search))
+                    viewModel.productIntent.trySend(FetchProducts(search))
                 }
             )
         },
