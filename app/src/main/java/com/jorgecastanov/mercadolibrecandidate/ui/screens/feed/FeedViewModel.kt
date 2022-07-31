@@ -3,13 +3,16 @@ package com.jorgecastanov.mercadolibrecandidate.ui.screens.feed
 import com.jorgecastanov.mercadolibrecandidate.data.repository.FeedRepository
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
-class FeedViewModel(
+@HiltViewModel
+class FeedViewModel @Inject constructor(
     private val repository: FeedRepository
 ) : ViewModel() {
 

@@ -2,9 +2,11 @@ package com.jorgecastanov.mercadolibrecandidate.ui.screens.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -59,22 +61,26 @@ fun RenderDetail(product: Product) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
             .padding(20.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Text(
                 text = product.title,
                 style = MaterialTheme.typography.h3
             )
             AsyncImage(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.size(400.dp),
                 model = product.thumbnail,
                 contentScale = ContentScale.Fit,
                 contentDescription = null
             )
+
             Text(
                 text = "$ ${product.price.convertCurrency()}",
                 style = MaterialTheme.typography.h1

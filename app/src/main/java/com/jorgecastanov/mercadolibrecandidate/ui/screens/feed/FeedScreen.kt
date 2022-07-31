@@ -19,12 +19,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.jorgecastanov.mercadolibrecandidate.data.api.ApiHelper
-import com.jorgecastanov.mercadolibrecandidate.data.api.ApiHelperImpl
-import com.jorgecastanov.mercadolibrecandidate.data.api.RetrofitBuilder
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
-import com.jorgecastanov.mercadolibrecandidate.data.repository.FeedRepository
-import com.jorgecastanov.mercadolibrecandidate.data.repository.FeedRepositoryImpl
 import com.jorgecastanov.mercadolibrecandidate.ui.components.FeedAppBar
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Idle
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Products
@@ -32,11 +28,11 @@ import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Error
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Loading
 
 @Composable
-fun FeedScreen(navController: NavController) {
+fun FeedScreen(
+    navController: NavController,
+    viewModel: FeedViewModel = hiltViewModel()
+) {
 
-    val apiHelper: ApiHelper = ApiHelperImpl(RetrofitBuilder.apiService)
-    val feedRepository: FeedRepository = FeedRepositoryImpl(apiHelper)
-    val viewModel = FeedViewModel(feedRepository)
     val state by viewModel.state.collectAsState()
 
     Scaffold(
