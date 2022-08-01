@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">MercadoLibreCandidate</string>
+
+    <string name="app_name">Mercado Libre Candidate</string>
+    <string name="empty">Empty</string>
+    <string name="currency">$  %1$s</string>
+    <string name="available">%1$s Available</string>
+    <string name="reference">%1$s Reference</string>
+    <string name="share">SHARE</string>
+    <string name="buy">BUY NOW</string>
+    <string name="search">Search here…</string>
+
 </resources>
