@@ -4,6 +4,6 @@ import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 
 interface ProductDataSource {
 
-    suspend fun getProducts(keyWord: String): List<Product>
+    suspend fun getProducts(keyWord: String): Result<List<Product>>
 
 }

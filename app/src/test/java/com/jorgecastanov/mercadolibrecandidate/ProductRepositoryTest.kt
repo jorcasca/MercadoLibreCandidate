@@ -15,6 +15,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.Response
 
 @HiltAndroidTest
 class ProductRepositoryTest {
@@ -41,8 +42,10 @@ class ProductRepositoryTest {
 
     @Test
     fun `When it tries to getProducts, Then it remote data source gets called`() {
+        val result = Result.success(emptyList<Product>())
+
         // Given
-        coEvery { productDataSource.getProducts(any()) } returns emptyList()
+        coEvery { productDataSource.getProducts(any()) } returns result
         // When
         runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
         // Then
@@ -51,12 +54,14 @@ class ProductRepositoryTest {
 
     @Test
     fun `When it tries to getProducts, Then two products are retrieved`() {
+        val result = Result.success(products)
+
         // Given
-        coEvery { productDataSource.getProducts(any()) } returns products
+        coEvery { productDataSource.getProducts(any()) } returns result
         // When
         val prods = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
         // Then
         coVerify { productDataSource.getProducts(any()) }
-        assertEquals(products, prods)
+        assertEquals(products, prods.getOrNull())
     }
 }

@@ -8,7 +8,7 @@ class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: ProductDataSource
     ) : ProductRepository {
 
-    override suspend fun getProducts(keyWord: String): List<Product> =
+    override suspend fun getProducts(keyWord: String): Result<List<Product>> =
         productDataSource.getProducts(keyWord)
 
 }

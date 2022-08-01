@@ -15,6 +15,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import retrofit2.Response
 
 class ProductRemoteDataSourceTest {
 
@@ -41,8 +42,10 @@ class ProductRemoteDataSourceTest {
 
     @Test
     fun `When it tries to getProducts, Then it remote api gets called`() {
+        val response = Response.success(search)
+
         // Given
-        coEvery { productApi.getProducts(any()) } returns search
+        coEvery { productApi.getProducts(any()) } returns response
         // When
         runBlocking { productDataSource.getProducts(keyWord) }
         // Then
@@ -51,12 +54,14 @@ class ProductRemoteDataSourceTest {
 
     @Test
     fun `When it tries to getProducts, Then two products are retrieved`() {
+        val response = Response.success(search)
+
         // Given
-        coEvery { productApi.getProducts(any()) } returns search
+        coEvery { productApi.getProducts(any()) } returns response
         // When
-        val search = runBlocking { productDataSource.getProducts(keyWord) }
+        val srch = runBlocking { productDataSource.getProducts(keyWord) }
         // Then
         coVerify { productApi.getProducts(any()) }
-        Assert.assertEquals(products, search)
+        Assert.assertEquals(products, srch.getOrNull())
     }
 }
