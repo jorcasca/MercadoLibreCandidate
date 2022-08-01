@@ -1,5 +1,11 @@
 package com.jorgecastanov.mercadolibrecandidate
 
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.ServiceUnavailableException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.InternalServerException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.InvalidRequestException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.UnauthorizedTokenException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.ScopeException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.NotFoundException
 import com.jorgecastanov.mercadolibrecandidate.data.datasource.ProductDataSource
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 import com.jorgecastanov.mercadolibrecandidate.data.repository.ProductRepository
@@ -11,11 +17,11 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import retrofit2.Response
 
 @HiltAndroidTest
 class ProductRepositoryTest {
@@ -63,5 +69,67 @@ class ProductRepositoryTest {
         // Then
         coVerify { productDataSource.getProducts(any()) }
         assertEquals(products, prods.getOrNull())
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then ServiceUnavailableException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(ServiceUnavailableException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is ServiceUnavailableException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then InternalServerException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(InternalServerException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is InternalServerException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then NotFoundException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(NotFoundException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is NotFoundException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then InvalidRequestException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(InvalidRequestException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is InvalidRequestException)
+    }
+
+
+    @Test
+    fun `When it tries to getProducts, Then UnauthorizedTokenException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(UnauthorizedTokenException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is UnauthorizedTokenException)
+    }
+
+
+    @Test
+    fun `When it tries to getProducts, Then ScopeException`() {
+        // Given
+        coEvery { productDataSource.getProducts(any()) } returns Result.failure(ScopeException())
+        // When
+        val result = runBlocking { ddpRepositoryImpl.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is ScopeException)
     }
 }

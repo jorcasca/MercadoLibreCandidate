@@ -16,12 +16,10 @@ sealed class ResponseException(message: String) : Exception(message) {
             return when (errorCode) {
                 503 -> ServiceUnavailableException()
                 500 -> InternalServerException()
+                404 -> NotFoundException()
                 400 -> InvalidRequestException()
                 401 -> UnauthorizedTokenException()
                 403 -> ScopeException()
-                404 -> NotFoundException()
-                204 -> NotContentException()
-                0 -> UnknownErrorException()
                 else -> null
             }
         }

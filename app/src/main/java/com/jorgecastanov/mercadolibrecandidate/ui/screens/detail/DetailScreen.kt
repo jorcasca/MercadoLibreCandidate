@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -20,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.jorgecastanov.mercadolibrecandidate.R
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 import com.jorgecastanov.mercadolibrecandidate.ui.components.NavigationAppBar
 import com.jorgecastanov.mercadolibrecandidate.ui.theme.MercadoLibreCandidateTheme
@@ -78,13 +82,12 @@ fun RenderDetail(product: Product) {
                 contentScale = ContentScale.Fit,
                 contentDescription = null
             )
-
             Text(
-                text = "$ ${product.price.convertCurrency()}",
+                text = stringResource(id = R.string.available, product.price.convertCurrency()),
                 style = MaterialTheme.typography.h1
             )
             Text(
-                text = "${product.available_quantity} Available",
+                text = stringResource(id = R.string.available, product.available_quantity),
                 style = MaterialTheme.typography.body1
             )
             Text(
@@ -96,7 +99,7 @@ fun RenderDetail(product: Product) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Reference ${product.id}",
+                text = stringResource(id = R.string.reference, product.id),
                 style = MaterialTheme.typography.body1
             )
             Button(
@@ -108,7 +111,7 @@ fun RenderDetail(product: Product) {
                 },
                 content = {
                     Text(
-                        text = "SHARE",
+                        text = stringResource(id = R.string.share),
                         style = MaterialTheme.typography.body1
                     )
                 })
@@ -118,9 +121,12 @@ fun RenderDetail(product: Product) {
                 onClick = {
                     uriHandler.openUri(product.permalink)
                 },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = MaterialTheme.colors.primaryVariant
+                ),
                 content = {
                     Text(
-                        text = "BUY NOW",
+                        text = stringResource(id = R.string.buy),
                         style = MaterialTheme.typography.body1
                     )
                 })

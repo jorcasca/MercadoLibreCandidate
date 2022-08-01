@@ -19,6 +19,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.jorgecastanov.mercadolibrecandidate.R
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
 import com.jorgecastanov.mercadolibrecandidate.ui.components.FeedAppBar
@@ -26,7 +28,7 @@ import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Idle
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Products
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Error
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedState.Loading
-import com.jorgecastanov.mercadolibrecandidate.ui.navigation.Navigation.DETAIL_SCREEN
+import com.jorgecastanov.mercadolibrecandidate.ui.navigation.goProductDetail
 import com.jorgecastanov.mercadolibrecandidate.ui.screens.feed.FeedIntent.FetchProducts
 
 @Composable
@@ -40,7 +42,7 @@ fun FeedScreen(
     Scaffold(
         topBar = {
             FeedAppBar(
-                title = "Mercado Libre Candidate",
+                title = stringResource(R.string.app_name),
                 onSearchClicked = { search ->
                     viewModel.productIntent.trySend(FetchProducts(search))
                 }
@@ -88,7 +90,7 @@ fun OnEmptyProducts() {
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "Empty",
+            text = stringResource(R.string.empty),
             style = MaterialTheme.typography.h2
         )
     }
@@ -109,7 +111,7 @@ fun OnError(error: String) {
 
 @Composable
 fun OnLoadedProducts(products: List<Product>, navController: NavController) {
-    if (products.isNotEmpty())
+    if (products.isNotEmpty()) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(1.dp)
         ) {
@@ -121,17 +123,14 @@ fun OnLoadedProducts(products: List<Product>, navController: NavController) {
                     available_quantity = product.available_quantity,
                     thumbnail = product.thumbnail,
                     onTab = {
-                        navController.currentBackStackEntry?.savedStateHandle?.set(
-                            key = "product",
-                            value = product
-                        )
-                        navController.navigate(DETAIL_SCREEN)
+                        goProductDetail(navController, product)
                     }
                 )
             }
         }
-    else
+    } else {
         OnEmptyProducts()
+    }
 }
 
 @Composable

@@ -10,8 +10,10 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import com.jorgecastanov.mercadolibrecandidate.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.jorgecastanov.mercadolibrecandidate.ui.theme.MercadoLibreCandidateTheme
@@ -57,7 +59,7 @@ fun ProductCard(
                             style = MaterialTheme.typography.body2
                         )
                         Text(
-                            "$available_quantity Available",
+                            stringResource(R.string.available, available_quantity),
                             style = MaterialTheme.typography.body2
                         )
                         Text(

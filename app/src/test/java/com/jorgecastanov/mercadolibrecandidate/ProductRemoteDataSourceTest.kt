@@ -1,6 +1,12 @@
 package com.jorgecastanov.mercadolibrecandidate
 
 import com.jorgecastanov.mercadolibrecandidate.data.api.ProductApi
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.ServiceUnavailableException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.InternalServerException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.InvalidRequestException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.UnauthorizedTokenException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.ScopeException
+import com.jorgecastanov.mercadolibrecandidate.data.api.utils.ResponseException.NotFoundException
 import com.jorgecastanov.mercadolibrecandidate.data.datasource.ProductDataSource
 import com.jorgecastanov.mercadolibrecandidate.data.datasource.ProductRemoteDataSource
 import com.jorgecastanov.mercadolibrecandidate.data.model.Product
@@ -59,9 +65,69 @@ class ProductRemoteDataSourceTest {
         // Given
         coEvery { productApi.getProducts(any()) } returns response
         // When
-        val srch = runBlocking { productDataSource.getProducts(keyWord) }
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
         // Then
         coVerify { productApi.getProducts(any()) }
-        Assert.assertEquals(products, srch.getOrNull())
+        Assert.assertEquals(products, result.getOrNull())
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then ServiceUnavailableException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(503, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is ServiceUnavailableException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then InternalServerException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(500, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is InternalServerException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then InvalidRequestException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(400, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is InvalidRequestException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then UnauthorizedTokenException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(401, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is UnauthorizedTokenException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then ScopeException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(403, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is ScopeException)
+    }
+
+    @Test
+    fun `When it tries to getProducts, Then NotFoundException`() {
+        // Given
+        coEvery { productApi.getProducts(any()) } returns Response.error(404, mockk(relaxed = true))
+        // When
+        val result = runBlocking { productDataSource.getProducts(keyWord) }
+        // Then
+        Assert.assertTrue(result.exceptionOrNull() is NotFoundException)
     }
 }
