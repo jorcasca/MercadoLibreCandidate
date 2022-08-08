@@ -1,8 +1,6 @@
 # MercadoLibreCandidate
 
-The objective of this stage of the interview is to develop an app using Mercado Libre's APIs, which allows a user to see the details of a product. Libre, which allows a user to see the details of a product.
-
-The implementation is in the develop branch.
+The purpose of this application is to allow the user to view the details of a product.
 
 ## Evidence 
 
