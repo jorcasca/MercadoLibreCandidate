@@ -1,4 +1,4 @@
-# MercadoLibreCandidate
+# Modern Android App With MELI
 
 The purpose of this application is to allow the user to view the details of a product.
 
