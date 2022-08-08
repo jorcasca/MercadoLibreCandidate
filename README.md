@@ -1,4 +1,4 @@
-# Modern Android App With MELI
+# Modern Android App
 
 The purpose of this application is to allow the user to view the details of a product.
 
